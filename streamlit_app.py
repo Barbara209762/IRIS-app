@@ -52,25 +52,6 @@ option = st.sidebar.selectbox(
 st.write(f"You selected: {option}")
 
 
-import matplotlib.pyplot as plt
-
-# Create a scatter plot
-fig, ax = plt.subplots()
-for s in species:
-    species_data = filtered_data[filtered_data['species'] == s]
-    ax.scatter(
-        species_data[x_iris], 
-        species_data[y_data], 
-        label=s
-    )
-
-ax.set_xlabel(x_iris)
-ax.set_ylabel(y_data)
-ax.legend()
-ax.set_title("Iris Dataset Scatter Plot")
-
-# Show the plot in Streamlit
-st.pyplot(fig)
 
 
 
