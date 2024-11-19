@@ -11,17 +11,26 @@ st.title("Mon premier tableau de bord Streamlit")
 
 st.write(data.head())
 
+#pip install streamlit altair
 import streamlit as st
 import pandas as pd
-import numpy as np
 import altair as alt
+#import matplotlib.pyplot as plt
 
-chart_data = pd.DataFrame(np.random.randn(20, 3), columns=["a", "b", "c"])
 
-c = (
-   alt.Chart(chart_data)
-   .mark_circle()
-   .encode(x="a", y="b", size="c", color="c", tooltip=["a", "b", "c"])
-)
+data =pd.read_csv('Iris.csv', delimiter = ';')
+st.title('Mon premier dashboard avec Streamlit')
+ #st. table(data)
 
-st.altair_chart(c, use_container_width=True)
+   # Créer un chart Altair
+ chart = alt.Chart(data).mark_bar().encode( x='SepalLength', y='SepalWidth" )
+# Afficher le chart sur Streamlit
+st.altair_chart(chart, use_container_width=True)
+                                           
+chart = alt.Chart(data).mark_point().encode( x='SepalLength', y='PetalLength')
+# Afficher le chart sur Streamlit
+st.altair_chart(chart, use_container_width=True)
+
+
+
+
