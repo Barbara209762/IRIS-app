@@ -21,6 +21,8 @@ import altair as alt
 data =pd.read_csv('Iris.csv', delimiter = ';')
 st.title('Mon premier dashboard avec Streamlit')
  #st. table(data)
+import altair as alt
+import pandas as pd
 
    # Créer un chart Altair
  chart = alt.Chart(data).mark_bar().encode( x='SepalLength', y='SepalWidth" )
