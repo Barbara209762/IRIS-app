@@ -10,3 +10,4 @@ st.title("Mon premier tableau de bord Streamlit")
 # Afficher les données dans un tableau
 
 st.write(data.head())
+st.write(sn.countplot(df, x="sepalwidth" , hue="species"))
