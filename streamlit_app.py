@@ -59,13 +59,13 @@ fig, ax = plt.subplots()
 for s in species:
     species_data = filtered_data[filtered_data['species'] == s]
     ax.scatter(
-        species_data[x_axis], 
-        species_data[y_axis], 
+        species_data[x_iris], 
+        species_data[y_data], 
         label=s
     )
 
-ax.set_xlabel(x_axis)
-ax.set_ylabel(y_axis)
+ax.set_xlabel(x_iris)
+ax.set_ylabel(y_data)
 ax.legend()
 ax.set_title("Iris Dataset Scatter Plot")
 
