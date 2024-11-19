@@ -10,3 +10,4 @@ st.title("Mon premier tableau de bord Streamlit")
 # Afficher les données dans un tableau
 
 st.write(data.head())
+df.groupby(['Species']).sum().plot(kind="bar")
