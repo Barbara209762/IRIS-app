@@ -9,7 +9,7 @@ st.title("Mon premier tableau de bord Streamlit")
 
 # Afficher les données dans un tableau
 
-st.write(data.head())
+# st.write(data.head())
 
 #pip install streamlit altair
 import streamlit as st
