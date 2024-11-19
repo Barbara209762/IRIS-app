@@ -8,5 +8,5 @@ data = pd.read_csv('Iris.csv',delimiter=';')
 st.title("Mon premier tableau de bord Streamlit") 
 
 # Afficher les données dans un tableau
-st.table(data)
+
 st.write(data.head())
