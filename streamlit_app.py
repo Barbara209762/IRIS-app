@@ -28,7 +28,7 @@ st.altair_chart(chart, use_container_width=True)
 
 
 import numpy as np
-import matplotlib.pylab as plt
+
 
 st.title("Simulation[tm]")
 st.write("Here is our super important simulation")
