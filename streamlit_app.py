@@ -42,9 +42,6 @@ option = st.sidebar.selectbox(
 
 # Display selected option
 st.write(f"You selected: {option}")
-
-    species_data = filtered_data[filtered_data['species'] == s]
-    ax.scatter(
         species_data[x_axis], 
         species_data[y_axis], 
         label=s
