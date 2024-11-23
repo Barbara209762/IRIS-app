@@ -55,7 +55,7 @@ def load_data():
     # Télécharger les données depuis seaborn
   df = sns.load_dataset("mpg").dropna()  # Supprimer les valeurs manquantes
 
-    return df  # Return the modified DataFrame
+   
 
 
 data = load_data()
