@@ -54,8 +54,8 @@ import pandas as pd
 def load_data():
     # Télécharger les données depuis seaborn
   df = sns.load_dataset("mpg").dropna()  # Supprimer les valeurs manquantes
-    df["origin"] = df["origin"].map({1: "USA", 2: "Europe", 3: "Asia"})  # Mapper les origines
-    return df
+
+return df
 
 data = load_data()
 
