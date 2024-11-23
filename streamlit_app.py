@@ -16,4 +16,3 @@ print("Seaborn importé avec succès!")
 import matplotlib.pyplot as plt                                          
 
  #pip show seaborn                                                        
- source /path/to/your/venv/bin/activate                            
