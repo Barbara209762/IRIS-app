@@ -46,7 +46,7 @@ st.write(f"You selected: {option}")
        
 
  
-import streamlit as
+
 stimport pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
