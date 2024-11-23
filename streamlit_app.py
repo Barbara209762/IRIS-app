@@ -11,12 +11,9 @@ print("Seaborn importé avec succès!")
 
 #pip install seaborn                                                     
 
-     2                                                                          
+                                                                              
+ import seaborn as sns                                                 
+import matplotlib.pyplot as plt                                          
 
-  ❱  3 import seaborn as sns                                                    
-
-     4 import matplotlib.pyplot as plt                                          
-
-     5 #pip show seaborn                                                        
-
-     6 source /path/to/your/venv/bin/activate                            
+ #pip show seaborn                                                        
+ source /path/to/your/venv/bin/activate                            
