@@ -44,7 +44,92 @@ option = st.sidebar.selectbox(
 st.write(f"You selected: {option}")
       
        
+import streamlit as st
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
 
+# Charger les données AUTO-MPG
+@st.cache
+def load_data():
+    df = sns.load_dataset("mpg").dropna()
+    # Charger depuis seaborn et supprimer les valeurs manquantes
+    df["origin"] = df["origin"].map({1: "USA", 2: "Europe", 3: "Asia"})  
+    # Remplacer les codes par des labels
+    return df
+
+data = load_data()
+
+# Titre du tableau de bord
+st.title("Tableau de bord interactif - Jeu de données AUTO-MPG")
+st.markdown("""
+Ce tableau de bord permet d'explorer le jeu de données AUTO-MPG. 
+Utilisez les graphiques pour analyser les relations entre les caractéristiques des voitures.
+""")
+
+# Afficher un aperçu des données
+st.subheader("Aperçu des données")
+st.dataframe(data)
+
+# Filtres interactifs
+st.sidebar.header("Filtres")
+years = st.sidebar.slider(
+    "Années des modèles (model_year)",
+    int(data["model_year"].min()),
+    int(data["model_year"].max()),
+    (1970, 1980)
+)
+origins = st.sidebar.multiselect(
+    "Origine des véhicules",
+    options=data["origin"].unique(),
+    default=data["origin"].unique()
+)
+
+# Appliquer les filtres
+filtered_data = data[(data["model_year"] >= years[0]) & (data["model_year"] <= years[1])]
+filtered_data = filtered_data[filtered_data["origin"].isin(origins)]
+
+# Graphique 1 : Histogramme de la consommation (MPG)
+st.subheader("Distribution de la consommation (MPG)")
+fig, ax = plt.subplots()
+sns.histplot(filtered_data["mpg"], bins=20, kde=True, color="blue", ax=ax)
+ax.set_title("Histogramme de la consommation (MPG)")
+st.pyplot(fig)
+
+# Graphique 2 : Relation entre poids et consommation (MPG)
+st.subheader("Relation entre le poids et la consommation (MPG)")
+fig, ax = plt.subplots()
+sns.scatterplot(
+    x="weight", 
+    y="mpg", 
+    hue="origin", 
+    style="cylinders", 
+    data=filtered_data, 
+    ax=ax
+)
+ax.set_title("Consommation (MPG) vs Poids")
+st.pyplot(fig)
+
+# Graphique 3 : Évolution de la consommation moyenne par année
+st.subheader("Évolution de la consommation moyenne par année")
+avg_mpg_by_year = filtered_data.groupby("model_year")["mpg"].mean()
+st.line_chart(avg_mpg_by_year)
+
+# Graphique 4 : Boxplot des cylindrées par origine
+st.subheader("Comparaison des cylindrées par origine")
+fig, ax = plt.subplots()
+sns.boxplot(x="origin", y="displacement", data=filtered_data, ax=ax)
+ax.set_title("Cylindrées par origine")
+st.pyplot(fig)
+
+# Télécharger les données filtrées
+st.subheader("Téléchargez les données filtrées")
+st.download_button(
+    label="Télécharger les données en CSV",
+    data=filtered_data.to_csv(index=False),
+    file_name="auto_mpg_filtered.csv",
+    mime="text/csv",
+)
 
 
 
