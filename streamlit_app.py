@@ -53,7 +53,7 @@ import pandas as pd
 @st.cache
 def load_data():
     # Télécharger les données depuis seaborn
-  df = sns.load_dataset("mpg").dropna() 
+ 
     # Supprimer les valeurs manquantes
 data = load_data()
 
