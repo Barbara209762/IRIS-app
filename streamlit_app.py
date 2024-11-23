@@ -67,7 +67,7 @@ st.sidebar.header("Filtres")
 selected_species = st.sidebar.multiselect(
     "Sélectionnez les espèces :",
     options=data["species"].unique(),
-    default=data["species"].unique(),
+default=data["species"].unique(),
 )
 
 # Filtrer les données
