@@ -48,6 +48,16 @@ st.write(f"You selected: {option}")
 
 import pandas as pd
 
+def load_data():
+    return sns.load_dataset("iris")  # Assumes 'species' column exists
+
+data = load_data()
+
+# verify data loading
+print(data.columns)
+print(data.head())
+
+# ... (Your code using data["species"])
 
 # Charger les données Iris
 @st.cache
