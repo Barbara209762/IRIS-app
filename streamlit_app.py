@@ -42,7 +42,7 @@ st.write(f"x={x} y={y}")
 values = np.cumprod(1 + np.random.normal(x, y, (100, 10)), axis=0)
 
 for i in range(values.shape[1]):
-    plt.plot(values[:, i])
+    
 
 st.pyplot()
 
