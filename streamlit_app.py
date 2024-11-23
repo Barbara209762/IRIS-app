@@ -4,7 +4,7 @@ import pandas as pd
 import altair as alt
 
 
-data=pd.read_csv("Iris.csv", delimiter - ';')
+data=pd.read_csv("Iris.csv", delimiter =';')
 st.title("Mon premier dashboard avec Streamlit")
 #st. table(data)
 # Créer un chart Altair
