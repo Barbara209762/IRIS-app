@@ -40,27 +40,39 @@ option = st.sidebar.selectbox(
     ["Option 1:iris", "Option 2;data", "Option 3;analytics"]
 )
 
-# Display selected option
-st.write(f"You selected: {option}")
-import altair as alt
+import streamlit as st
 import pandas as pd
 
-#create a chart
-chart=alt.chart(data).mark_line().encode( x='SepalWidth',y=SepalLength')
+# Charger les données
+url = "https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data"
+column_names = ['sepal length', 'sepal width', 'petal length', 'petal width', 'species']
+data = pd.read_csv(url, header=None, names=column_names)
 
+# Vérifier les colonnes
+if 'species' not in data.columns:
+    st.error("La colonne 'species' n'existe pas dans les données.")
+else:
+    # Titre de l'application
+    st.title("Exploration des données Iris")
 
-#afficher le chart sur streamlit
-st.altair_chart(chart, use_container_width=True)
+    # Afficher les données
+    st.write("Voici un aperçu des données:")
+    st.write(data.head())
 
-import altair as alt
-import pandas as pd
+    # Sélectionner les colonnes pour les graphiques
+    x_axis = st.selectbox("Choisissez l'axe X", data.columns)
+    y_axis = st.selectbox("Choisissez l'axe Y", data.columns)
 
-#create a chart
-chart= alt.chart(data).mark_line().encode( x='SepalWidth',y=SepalLength')
+    # Créer le graphique
+    st.write(f"Graphique de {y_axis} en fonction de {x_axis}")
+    st.line_chart(data[[x_axis, y_axis]])
 
+    # Filtrer par espèce
+    species = st.multiselect("Sélectionnez les espèces", options=data["species"].unique())
+    filtered_data = data[data["species"].isin(species)]
+    st.write("Données filtrées:")
+    st.write(filtered_data)
 
-#afficher le chart sur streamlit 
-st.altair_chart(chart, use_container_width=True)
 
 
 
