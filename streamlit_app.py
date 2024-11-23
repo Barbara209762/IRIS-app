@@ -52,11 +52,7 @@ import pandas as pd
 # Charger les données Iris
 @st.cache
 def load_iris_data():
-    return sns.load_dataset("iris")
-
-# Call the function and store the returned dataset
-iris_data = load_iris_data()
-
+   
 # Now you can work with the 'iris_data' DataFrame
 print(iris_data.head())
 
