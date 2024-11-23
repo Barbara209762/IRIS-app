@@ -45,79 +45,83 @@ st.write(f"You selected: {option}")
       
        
 
- 
-
+ import streamlit as st
 import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
 
-# Charger les données AUTO-MPG
+# Charger les données Iris
 @st.cache
 def load_data():
-    # Télécharger les données depuis seaborn
- 
-    # Supprimer les valeurs manquantes
+    return sns.load_dataset("iris")
+
 data = load_data()
 
-# Titre et description
-st.title("Tableau de bord interactif - Jeu de données AUTO-MPG")
+# Titre et introduction
+st.title("Tableau de bord interactif - Jeu de données Iris")
 st.markdown("""
-Ce tableau de bord permet d'explorer le jeu de données AUTO-MPG. 
-Utilisez les filtres pour explorer les relations entre différentes variables.
+Ce tableau de bord vous permet d'explorer le jeu de données Iris. Utilisez les *filtres* pour sélectionner les espèces et visualiser les relations entre les différentes caractéristiques.
 """)
 
-# Afficher un aperçu des données
-st.subheader("Aperçu des données")
-st.dataframe(data.head())
-
-# Filtrer les données par année du modèle
-st.dataframe(data.head())
-
-# Filtrer les données par année du modèle
+# Sidebar pour les filtres
 st.sidebar.header("Filtres")
-year_range = st.sidebar.slider(
-    "Année du modèle (model_year)", 
-    int(data["model_year"].min()), 
-    int(data["model_year"].max()), 
-    (1970, 1980)
+selected_species = st.sidebar.multiselect(
+    "Sélectionnez les espèces :",
+    options=data["species"].unique(),
+    default=data["species"].unique(),
 )
-filtered_data = data[(data["model_year"] >= year_range[0]) & (data["model_year"] <= year_range[1])]
 
-# Filtrer les données par origine
-origins = st.sidebar.multiselect(
-    "Origine du véhicule", 
-    options=data["origin"].unique(), 
-    default=data["origin"].unique()
-)
-filtered_data = filtered_data[filtered_data["origin"].isin(origins)]
+# Filtrer les données
+filtered_data = data[data["species"].isin(selected_species)]
 
-# Afficher des statistiques
+# Afficher les données
+st.subheader("Aperçu des données")
+st.write(f"Nombre d'observations : {len(filtered_data)}")
+st.dataframe(filtered_data)
+
+# Afficher des statistiques descriptives
 st.subheader("Statistiques descriptives")
-st.write(filtered_data.describe())# Visualisation : Distribution du MPG
-st.subheader("Distribution de la consommation (MPG)")
+st.write(filtered_data.describe())
+
+# Visualisation 1 : Distribution de la longueur du sépale
+st.subheader("Distribution de la longueur du sépale")
 fig, ax = plt.subplots()
-sns.histplot(filtered_data["mpg"], bins=20, kde=True, ax=ax)
-ax.set_title("Distribution de la consommation (MPG)")
+sns.histplot(filtered_data["sepal_length"], bins=10, kde=True, ax=ax, color="blue")
+ax.set_title("Distribution de la longueur du sépale")
 st.pyplot(fig)
 
-# Visualisation : Relation entre poids et consommation
-st.subheader("Relation entre le poids et la consommation (MPG)")
+# Visualisation 2 : Longueur et largeur du pétale
+st.subheader("Relation entre la longueur et la largeur du pétale")
 fig, ax = plt.subplots()
 sns.scatterplot(
-    x="weight", y="mpg", hue="origin", style="cylinders", data=filtered_data, ax=ax
+    x="petal_length",
+    y="petal_width",
+    hue="species",
+    style="species",
+    data=filtered_data,
+    ax=ax,
 )
-ax.set_title("Poids vs Consommation")
+ax.set_title("Longueur vs Largeur du pétale")
 st.pyplot(fig)
 
-# Graphique de tendance : Consommation moyenne par année
-st.subheader("Évolution de la consommation moyenne par année")
-mpg_by_year = filtered_data.groupby("model_year")["mpg"].mean()
-st.line_chart(mpg_by_year)
+# Visualisation 3 : Boxplot des longueurs de sépales par espèce
+st.subheader("Boxplot : Longueur des sépales par espèce")
+fig, ax = plt.subplots()
+sns.boxplot(x="species", y="sepal_length", data=filtered_data, ax=ax)
+ax.set_title("Longueur des sépales par espèce")
+st.pyplot(fig)
 
-# Télécharger les données filtrées
+# Visualisation 4 : Moyenne des longueurs de pétales par espèce
+st.subheader("Moyenne des longueurs de pétales par espèce")
+avg_petal_length = filtered_data.groupby("species")["petal_length"].mean()
+st.bar_chart(avg_petal_length)
+
+# Téléchargement des données filtrées
 st.subheader("Téléchargez les données filtrées")
 st.download_button(
     label="Télécharger les données en CSV",
     data=filtered_data.to_csv(index=False),
-    file_name="auto_mpg_filtered.csv",
+    file_name="iris_filtered.csv",
     mime="text/csv",
 )
 
