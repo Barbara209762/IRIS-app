@@ -54,16 +54,7 @@ import pandas as pd
 def load_iris_data():
  return sns.load_dataset("iris")
    
-# Now you can work with the 'iris_data' DataFrame
 
-
-# ... (Definition of the 'load_data' function)
-
-# Call the function and assign the returned data
-data = load_data()
-
-# Now you can use 'data'
-print(data.head())  # If 'data' is a Pandas DataFrame
 
 # Titre et introduction
 st.title("Tableau de bord interactif - Jeu de données Iris")
