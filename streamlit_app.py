@@ -42,9 +42,7 @@ option = st.sidebar.selectbox(
 
 # Display selected option
 st.write(f"You selected: {option}")
-
-# Create a scatter plot
-fig, ax = plt.subplots()
+)
 for s in species:
     species_data = filtered_data[filtered_data['species'] == s]
     ax.scatter(
