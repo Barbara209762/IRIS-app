@@ -55,7 +55,6 @@ def load_iris_data():
  return sns.load_dataset("iris")
    
 # Now you can work with the 'iris_data' DataFrame
-print(iris_data.head())
 
 
 # ... (Definition of the 'load_data' function)
