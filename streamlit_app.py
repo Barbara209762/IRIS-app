@@ -45,14 +45,6 @@ st.write(f"You selected: {option}")
       
        
 
-ax.set_xlabel(x_axis)
-ax.set_ylabel(y_axis)
-ax.legend()
-ax.set_title("Iris Dataset Scatter Plot")
-
-# Show the plot in Streamlit
-st.pyplot(fig)
-
  
 
 
