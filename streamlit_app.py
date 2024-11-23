@@ -1,3 +1,4 @@
-pip install seaborn
+#pip install seaborn
 
-
+import seaborn as sns
+import matplotlib.pyplot as plt
