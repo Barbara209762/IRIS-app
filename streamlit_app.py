@@ -2,4 +2,4 @@
 
 import seaborn as sns
 import matplotlib.pyplot as plt
-pip show seaborn
+#pip show seaborn
