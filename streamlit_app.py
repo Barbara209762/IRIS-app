@@ -10,83 +10,53 @@ st.title("Mon premier tableau de bord Streamlit")
 # Afficher les données dans un tableau
 
 # st.write(data.head())
-
-
+pip install streamlit pandas matplotlib seaborn
 import streamlit as st
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
-from sklearn.datasets import load_iris
 
-# Charger les données Iris
+# Charger les données AUTO-MPG
 @st.cache
 def load_data():
-    iris = load_iris()
-    data = pd.DataFrame(data=iris.data, columns=iris.feature_names)
-    data["species"] = iris.target
-    data["species"] = data["species"].map({0: "setosa", 1: "versicolor", 2: "virginica"})
-    return data
+    # Charger les données depuis seaborn
+    return sns.load_dataset('mpg').dropna()
 
 data = load_data()
 
 # Titre du tableau de bord
-st.title("Tableau de bord interactif : Jeu de données Iris")
-st.markdown("""
-Ce tableau de bord vous permet d'explorer le célèbre jeu de données Iris, 
-utilisé pour la classification des espèces de fleurs en fonction de leurs dimensions.
-""")
+st.title("Dashboard interactif : Analyse du jeu de données AUTO-MPG")
 
-# Afficher un aperçu des données
+# Afficher les données dans un tableau interactif
 st.subheader("Aperçu des données")
-st.dataframe(data.head())
+st.write(data.head())
+
+# Ajouter un filtre pour l'année du modèle
+year_filter = st.slider("Filtrer par année du modèle :", int(data["model_year"].min()), int(data["model_year"].max()), (1970, 1980))
+filtered_data = data[(data["model_year"] >= year_filter[0]) & (data["model_year"] <= year_filter[1])]
+
+st.write(f"Nombre de voitures sélectionnées : {len(filtered_data)}")
+
+# Créer un graphique des cylindres
+st.subheader("Distribution des cylindres")
+cylinders_count = filtered_data["cylinders"].value_counts()
+st.bar_chart(cylinders_count)
+
+# Créer un graphique MPG vs Poids
+st.subheader("Relation entre MPG et Poids")
+fig, ax = plt.subplots()
+sns.scatterplot(x="weight", y="mpg", hue="origin", data=filtered_data, ax=ax)
+ax.set_title("Consommation (MPG) vs Poids des voitures")
+st.pyplot(fig)
+
+# Ajouter un graphique linéaire interactif
+st.subheader("Évolution de la consommation par année")
+mpg_by_year = filtered_data.groupby("model_year")["mpg"].mean()
+st.line_chart(mpg_by_year)
 
 # Afficher des statistiques descriptives
 st.subheader("Statistiques descriptives")
-st.write(data.describe())
-
-# Filtre par espèce
-st.sidebar.header("Filtres")
-selected_species = st.sidebar.multiselect(
-    "Espèces sélectionnées", 
-    options=data["species"].unique(), 
-    default=data["species"].unique()
-)
-filtered_data = data[data["species"].isin(selected_species)]
-
-# Visualisation 1 : Nuage de points pour deux dimensions
-st.subheader("Relation entre deux dimensions des fleurs")
-x_axis = st.selectbox("Sélectionnez l'axe X :", data.columns[:-1])
-y_axis = st.selectbox("Sélectionnez l'axe Y :", data.columns[:-1])
-
-fig, ax = plt.subplots()
-sns.scatterplot(
-    x=x_axis, 
-    y=y_axis, 
-    hue="species", 
-    data=filtered_data, 
-    ax=ax, 
-    palette="viridis"
-)
-ax.set_title(f"{y_axis} vs {x_axis}")
-st.pyplot(fig)
-
-# Visualisation 2 : Distribution des dimensions
-st.subheader("Distribution des dimensions")
-dimension = st.selectbox("Sélectionnez une dimension :", data.columns[:-1])
-
-fig, ax = plt.subplots()
-sns.histplot(data=filtered_data, x=dimension, hue="species", kde=True, ax=ax, palette="viridis")
-ax.set_title(f"Distribution de {dimension}")
-st.pyplot(fig)
-
-# Télécharger les données filtrées
-st.subheader("Téléchargez les données filtrées")
-st.download_button(
-    label="Télécharger les données en CSV",
-    data=filtered_data.to_csv(index=False),
-    file_name="iris_filtered.csv",
-    mime="text/csv",
-)
+st.write(filtered_data.describe())
 
  
 
