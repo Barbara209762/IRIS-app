@@ -47,14 +47,27 @@ st.write(f"You selected: {option}")
 
 
 import pandas as pd
-
+ import seaborn as sns
 
 # Charger les données Iris
 @st.cache
-def load_data():
+def load_iris_data():
     return sns.load_dataset("iris")
 
+# Call the function and store the returned dataset
+iris_data = load_iris_data()
+
+# Now you can work with the 'iris_data' DataFrame
+print(iris_data.head())
+
+
+# ... (Definition of the 'load_data' function)
+
+# Call the function and assign the returned data
 data = load_data()
+
+# Now you can use 'data'
+print(data.head())  # If 'data' is a Pandas DataFrame
 
 # Titre et introduction
 st.title("Tableau de bord interactif - Jeu de données Iris")
