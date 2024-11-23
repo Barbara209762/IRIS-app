@@ -65,9 +65,7 @@ Ce tableau de bord vous permet d'explorer le jeu de données Iris. Utilisez les 
 # Sidebar pour les filtres
 st.sidebar.header("Filtres")
 selected_species = st.sidebar.multiselect(
-    "Sélectionnez les espèces :",
-    options=data["species"].unique(),
-default=data["species"].unique(),
+   
 )
 
 # Filtrer les données
