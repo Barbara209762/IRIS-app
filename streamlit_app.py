@@ -43,8 +43,6 @@ option = st.sidebar.selectbox(
 # Display selected option
 st.write(f"You selected: {option}")
 
-
-for s in species:
     print(f"The current species is: {s}")
     species_data = filtered_data[filtered_data['species'] == s]
     ax.scatter(
