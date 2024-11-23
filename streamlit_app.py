@@ -49,8 +49,6 @@ st.write(f"You selected: {option}")
 
 import pandas as pd
 
-import matplotlib.pyplot as plt
-
 # Charger les données AUTO-MPG
 @st.cache
 def load_data():
