@@ -4,7 +4,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 
 # Charger les données AUTO-MPG
-@st.cache
+@st.cache_data  # Use st.cache_data instead of st.cache
 def load_data():
     # Charger les données depuis seaborn
     return sns.load_dataset('mpg').dropna()
@@ -27,23 +27,7 @@ st.write(f"Nombre de voitures sélectionnées : {len(filtered_data)}")
 # Créer un graphique des cylindres
 st.subheader("Distribution des cylindres")
 cylinders_count = filtered_data["cylinders"].value_counts()
-st.bar_chart(cylinders_count)
-
-# Créer un graphique MPG vs Poids
-st.subheader("Relation entre MPG et Poids")
-fig, ax = plt.subplots()
-sns.scatterplot(x="weight", y="mpg", hue="origin", data=filtered_data, ax=ax)
-ax.set_title("Consommation (MPG) vs Poids des voitures")
-st.pyplot(fig)
-
-# Ajouter un graphique linéaire interactif
-st.subheader("Évolution de la consommation par année")
-mpg_by_year = filtered_data.groupby("model_year")["mpg"].mean()
-st.line_chart(mpg_by_year)
-
-# Afficher des statistiques descriptives
-st.subheader("Statistiques descriptives")
-st.write(filtered_data.describe())
+st.bar_chart(cylinders_count) # Corrected this line
 
  
 
