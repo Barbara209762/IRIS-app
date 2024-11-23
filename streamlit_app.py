@@ -26,29 +26,22 @@ chart
 st.altair_chart(chart, use_container_width=True)
 
 
+import streamlit as st
 
-import numpy as np
+# Title for the main app
+st.title("Main App Area")
 
+# Title for the sidebar
+st.sidebar.title("Sidebar")
 
-st.title("Simulation[tm]")
-st.write("Here is our super important simulation")
+# Add widgets to the sidebar
+option = st.sidebar.selectbox(
+    "Select an option:",
+    ["Option 1", "Option 2", "Option 3"]
+)
 
-st.sidebar.markdown("## Controls")
-st.sidebar.markdown("You can *change* the values to change the chart.")
-x = st.sidebar.slider('Slope', min_value=0.01, max_value=0.10, step=0.01)
-y = st.sidebar.slider('Noise', min_value=0.01, max_value=0.10, step=0.01)
-
-st.write(f"x={x} y={y}")
-values = np.cumprod(1 + np.random.normal(x, y, (100, 10)), axis=0)
-
-values = np.array([[1, 2, 3], [4, 5, 6]])
-
-for i in range(values.shape[1]):
-    column = values[:, i]  
-    print(f"Column {i}: {column}")  # Print the column index and its contents
-    
-
-st.pyplot()
+# Display selected option
+st.write(f"You selected: {option}")
 
 
  
