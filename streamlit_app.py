@@ -41,7 +41,11 @@ y = st.sidebar.slider('Noise', min_value=0.01, max_value=0.10, step=0.01)
 st.write(f"x={x} y={y}")
 values = np.cumprod(1 + np.random.normal(x, y, (100, 10)), axis=0)
 
-for i in range(values.shape[1]):
+values = np.array([[1, 2, 3], [4, 5, 6]])  # A 2x3 array
+
+for i in range(values.shape[1]):  # Loop over columns (0, 1, 2)
+    column = values[:, i]  # Get the i-th column
+    print(f"Column {i}: {column}"):
     
 
 st.pyplot()
