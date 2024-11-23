@@ -43,8 +43,6 @@ option = st.sidebar.selectbox(
 # Display selected option
 st.write(f"You selected: {option}")
 
-import matplotlib.pyplot as plt
-
 # Create a scatter plot
 fig, ax = plt.subplots()
 for s in species:
