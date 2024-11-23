@@ -43,8 +43,7 @@ option = st.sidebar.selectbox(
 # Display selected option
 st.write(f"You selected: {option}")
       
-        label=s
-    )
+       
 
 ax.set_xlabel(x_axis)
 ax.set_ylabel(y_axis)
